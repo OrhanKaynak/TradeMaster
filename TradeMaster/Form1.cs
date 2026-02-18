@@ -55,10 +55,23 @@ namespace TradeMaster
                 lblFiyat.Text = $"{secilenUrun.price} $";
                 lblPuan.Text = $"Puan: {secilenUrun.rating}";
                 txtAciklama.Text = secilenUrun.description;
-                if (!string.IsNullOrEmpty(secilenUrun.thumbnail))
+
+                try
                 {
-                    pbResim.Load(secilenUrun.thumbnail);
+                    if (!string.IsNullOrEmpty(secilenUrun.thumbnail))
+                    {
+                        pbResim.Load(secilenUrun.thumbnail);
+                    }
+                    else
+                    {
+                        pbResim.Image = null;
+                    }
                 }
+                catch (Exception)
+                {
+                    pbResim.Image = null;
+                }
+                
             }
         }
     }
@@ -77,6 +90,11 @@ namespace TradeMaster
         public decimal price { get; set; }
         public double rating { get; set; }
         public string thumbnail { get; set; }
+
+        public override string ToString()
+        {
+            return title;
+        }
     }
 
     public class UrunResponse
